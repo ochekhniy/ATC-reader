@@ -1,11 +1,14 @@
 import socket
 import sys
+import os
 
 HOST = ''  # Symbolic name, meaning all available interfaces
 PORT = 5040  # Arbitrary non-privileged port
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print('Socket created')
+
+localDirectory = os.path.dirname(__file__)
 
 # Bind socket to local host and port
 try:
@@ -29,6 +32,11 @@ while 1:
         data = conn.recv(1024)
         if not data:
             break
+
+        file = open(os.path.join(localDirectory, 'test.txt'), 'a+')
+        file.writelines(str(data.upper())+'\n')
+        file.close()
+
         print(data.upper())
 
 s.close()

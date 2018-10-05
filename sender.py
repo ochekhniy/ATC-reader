@@ -14,7 +14,7 @@ print("Start sending")
 while True:
     if counter > 20:
         break
-    time.sleep(10)
+    time.sleep(2)
     counter += 1
     print("The ", counter, " try")
     message = 'hello, world! Try number: {}'.format(counter)
