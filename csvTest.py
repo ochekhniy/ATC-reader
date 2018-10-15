@@ -16,14 +16,16 @@ lineStructure = [
     ('line-feed', 65, 66, 1)
 ]
 
-fieldnames = [x[0] for x in lineStructure]
+fieldsNames = [x[0] for x in lineStructure]
 
-# print(fieldnames)
 
 file = open('test-1.txt', 'r')
+
 outFile = open('out-file.csv', 'w', newline='')
-csvWriter = csv.DictWriter(outFile, fieldnames=fieldnames)
+
+csvWriter = csv.DictWriter(outFile, fieldnames=fieldsNames)
 csvWriter.writeheader()
+
 for row in file.readlines():
     data = dict()
     for position in lineStructure:
