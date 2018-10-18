@@ -17,25 +17,39 @@ line_structure = [
 fields_names = [x[0] for x in line_structure]
 
 
-def decodeString(string, line_structure_parameter=line_structure):
+def decode_string(string, line_structure_parameter=line_structure):
 
-    data = dict()
+    decoded = dict()
     for position in line_structure_parameter:
-        data[position[0]] = string[position[1]:position[2]].strip()
+        decoded[position[0]] = string[position[1]:position[2]].strip()
 
-    return data
+    return decoded
+
+
+def write_data_to_file(row : str):
+    data = decode_string(row, )
+
+    if data.get('date'):
+        name = data.get('date')
+
+        need_to_made_header = False
+        if not file_exists(name + ".csv"):
+            need_to_made_header = True
+
+        out_file = open(name + ".csv", 'a', newline='')
+        csv_writer = csv.DictWriter(out_file, fieldnames=fields_names)
+
+        if need_to_made_header:
+            csv_writer.writeheader()
+
+        csv_writer.writerow(data)
 
 
 if __name__ == "__main__":
     import csv
+    from os.path import exists as file_exists
+
     file = open('test-1.txt', 'r')
 
-    outFile = open('out-file.csv', 'w', newline='')
-
-    csvWriter = csv.DictWriter(outFile, fieldnames=fields_names)
-    csvWriter.writeheader()
-
     for row in file.readlines():
-        data = decodeString(row, )
-        csvWriter.writerow(data)
-
+        write_data_to_file(row)
