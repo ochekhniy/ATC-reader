@@ -28,15 +28,16 @@ while 1:
     # wait to accept a connection - blocking call
     conn, addr = s.accept()
     print('Connected with ' + addr[0] + ':' + str(addr[1]))
+
     while True:
         data = conn.recv(1024)
         if not data:
             break
 
         file = open(os.path.join(localDirectory, 'test.txt'), 'a+')
-        file.writelines(str(data.upper())+'\n')
+        file.writelines(str(data.decode().upper())+'\n')
         file.close()
 
-        print(data.upper())
+        # print(data.decode().upper())
 
 s.close()
