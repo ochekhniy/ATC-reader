@@ -70,7 +70,7 @@ if __name__ == "__main__":
     while 1:
         # wait to accept a connection - blocking call
         conn, address = s.accept()
-        print('Connected with ' + address[0] + ':' + str(address[1]))
+        # print('Connected with ' + address[0] + ':' + str(address[1]))
 
         while True:
             data = conn.recv(64).decode()
